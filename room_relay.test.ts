@@ -84,3 +84,35 @@ test('preserves guest players when host transitions from index.html to game.html
     assert.equal(reHost.room?.seed, 123456);
     assert.equal(reHost.room?.launched?.seed, 123456);
 });
+
+test('admin listAllRooms, broadcastSystemMessage, and deleteRoom work accurately', () => {
+    const relay = createRoomRelayManager();
+    relay.createOrUpdateRoom({
+        code: '9012',
+        hostId: 'host_90',
+        hostName: 'کاوه',
+        hostColorIdx: 0
+    });
+    relay.joinRoom({
+        code: '9012',
+        playerId: 'guest_90',
+        playerName: 'رستم',
+        colorIdx: 1
+    });
+
+    const listBefore = relay.listAllRooms();
+    assert.equal(listBefore.length, 1);
+    assert.equal(listBefore[0].code, '9012');
+    assert.equal(listBefore[0].humanCount, 2);
+    assert.equal(listBefore[0].status, 'waiting');
+
+    const bcast = relay.broadcastSystemMessage({ code: '9012', text: 'مسابقه تا ۵ دقیقه دیگر آغاز می‌شود' });
+    assert.equal(bcast.ok, true);
+
+    const poll = relay.pollMessages({ code: '9012', playerId: 'guest_90', since: 0 });
+    assert.equal(poll.messages?.some((m: { type: string; text?: string }) => m.type === 'CHAT_MSG' && m.text?.includes('مسابقه')), true);
+
+    const delRes = relay.deleteRoom('۹۰۱۲');
+    assert.equal(delRes.ok, true);
+    assert.equal(relay.listAllRooms().length, 0);
+});

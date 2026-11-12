@@ -297,8 +297,83 @@ function createRoomRelayManager() {
             gameStarted: room.gameStarted,
             startGamePayload: room.startGamePayload,
             gameStateSnapshot: room.gameStateSnapshot,
-            lastSeq: room.lastSeq
+            lastSeq: room.lastSeq,
+            createdAt: room.createdAt,
+            updatedAt: room.updatedAt
         };
+    }
+
+    function listAllRooms() {
+        cleanupExpiredRooms();
+        const result = [];
+        for (const room of rooms.values()) {
+            const players = Array.isArray(room.players) ? room.players : [];
+            const humanPlayers = players.filter(p => !p.isBot);
+            const botPlayers = players.filter(p => p.isBot);
+            const hostPlayer = players.find(p => p.id === room.hostId) || players[0] || null;
+            let status = 'waiting';
+            if (room.gameStarted) status = 'in_game';
+            else if (room.launched) status = 'launched';
+
+            result.push({
+                code: room.code,
+                hostId: room.hostId,
+                hostName: hostPlayer ? hostPlayer.name : 'میزبان',
+                players,
+                humanCount: humanPlayers.length,
+                botCount: botPlayers.length,
+                totalPlayers: players.length,
+                seed: room.seed,
+                status,
+                gameStarted: Boolean(room.gameStarted),
+                launched: Boolean(room.launched),
+                lastSeq: room.lastSeq,
+                messageCount: room.messages.length,
+                recentMessages: room.messages.slice(-40).reverse(),
+                createdAt: room.createdAt,
+                updatedAt: room.updatedAt
+            });
+        }
+        return result.sort((a, b) => b.updatedAt - a.updatedAt);
+    }
+
+    function deleteRoom(code) {
+        const cleanCode = normalizeCode(code);
+        if (!cleanCode) return { ok: false, error: 'کد اتاق نامعتبر است.' };
+        const existed = rooms.delete(cleanCode);
+        return { ok: existed, deletedCode: cleanCode };
+    }
+
+    function broadcastSystemMessage({ code = 'ALL', text, senderName = 'سیستم مدیریت' }) {
+        cleanupExpiredRooms();
+        const msgText = String(text || '').trim();
+        if (!msgText) return { ok: false, error: 'متن پیام خالی است.' };
+
+        const targetRooms = [];
+        if (code === 'ALL' || !code) {
+            for (const r of rooms.values()) targetRooms.push(r);
+        } else {
+            const cleanCode = normalizeCode(code);
+            const r = rooms.get(cleanCode);
+            if (r) targetRooms.push(r);
+        }
+
+        if (targetRooms.length === 0) {
+            return { ok: false, error: 'اتاق فعالی برای ارسال پیام یافت نشد.' };
+        }
+
+        for (const r of targetRooms) {
+            appendMessage(r, 'ADMIN_SYSTEM', 'ALL', {
+                type: 'CHAT_MSG',
+                sender: senderName,
+                text: msgText,
+                colorIdx: 0,
+                isSystem: true,
+                _msgId: `sys_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+            });
+        }
+
+        return { ok: true, sentToRooms: targetRooms.map(r => r.code) };
     }
 
     return {
@@ -307,6 +382,9 @@ function createRoomRelayManager() {
         joinRoom,
         sendMessage,
         pollMessages,
+        listAllRooms,
+        deleteRoom,
+        broadcastSystemMessage,
         _rooms: rooms
     };
 }

@@ -3565,6 +3565,27 @@
                 if (currentUserProfile && currentUserProfile.friendId) {
                     CatanServerAPI.syncUser(currentUserProfile).catch(() => {});
                 }
+                try {
+                    const pubPrefix = window.location.pathname.startsWith('/catan') ? '/catan/api/settings/public' : '/api/settings/public';
+                    const sRes = await fetch(pubPrefix);
+                    if (sRes.ok) {
+                        const sData = await sRes.json();
+                        const cfg = sData && sData.settings;
+                        if (cfg) {
+                            if (cfg.siteTitle) document.title = cfg.siteTitle;
+                            if (cfg.announcementActive && cfg.announcementText) {
+                                let banner = document.getElementById('public-site-announcement');
+                                if (!banner) {
+                                    banner = document.createElement('div');
+                                    banner.id = 'public-site-announcement';
+                                    banner.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-[45] max-w-md w-[92vw] px-4 py-2 rounded-xl bg-amber-950/90 border border-amber-400/50 text-amber-200 text-xs font-bold text-center shadow-xl backdrop-blur-md pointer-events-none';
+                                    document.body.appendChild(banner);
+                                }
+                                banner.textContent = cfg.announcementText;
+                            }
+                        }
+                    }
+                } catch (_) {}
                 if (window.__splashDismissed && typeof window.checkAndShowAuthModal === 'function') {
                     window.checkAndShowAuthModal();
                 }

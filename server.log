@@ -123,3 +123,61 @@
 [2026-11-12 09:21:13] [REQ] GET /api/party/poll?code=5614&playerId=player_5717&since=4&_t=1794475273944 | Data: {"clientIp":"::1"}
 [2026-11-12 09:21:14] [REQ] GET /api/party/poll?code=5614&playerId=player_5717&since=4&_t=1794475274494 | Data: {"clientIp":"::1"}
 [2026-11-12 09:21:15] [PEER] WebRTC Peer disconnected: catan3d-party-5614
+[2026-11-12 10:06:47] [SYSTEM] Server process initialized on port 3000. Environment: development
+[2026-11-12 10:06:47] [SYSTEM] Selected Database Driver: SQLITE
+[2026-11-12 10:06:47] [SYSTEM] The Bears Catan Server running at: http://localhost:3000
+[2026-11-12 10:06:47] [SYSTEM] PeerJS Signaling Server active on: /peerjs & /catan/peerjs
+[2026-11-12 10:06:47] [SYSTEM] Admin Log Monitor URL: /catan/api/admin/logs?key=catan2026
+[2026-11-12 10:06:47] [DB] SQLite Schema initialized successfully.
+[2026-11-12 10:10:38] [REQ] GET /api/friends?userId=%23BC-7111 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:38] [REQ] GET /api/leaderboard | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:47] [REQ] GET /api/friends?userId=%23BC-7111 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:47] [REQ] GET /api/health | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:47] [REQ] GET /api/leaderboard | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:47] [REQ] POST /api/user/sync | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:51] [REQ] POST /api/party/create | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:51] [PEER] Party room active on server relay: #6211 (Host: player_3547)
+[2026-11-12 10:10:52] [PEER] WebRTC Peer connected: catan3d-party-6211
+[2026-11-12 10:10:52] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478252782 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:52] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478253340 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:53] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478253884 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:53] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478254431 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:54] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478255000 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:54] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478255533 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:55] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478256082 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:55] [REQ] POST /api/party/send | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:55] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=0&_t=1794478256637 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:56] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=1&_t=1794478257187 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:56] [REQ] POST /api/party/send | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:57] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=1&_t=1794478257740 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:57] [REQ] POST /api/party/send | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:57] [REQ] POST /api/party/send | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:57] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=2&_t=1794478258287 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:58] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478258837 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:58] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478259388 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:59] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478259939 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:10:59] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478260487 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:00] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478261037 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:00] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478261587 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:01] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478262139 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:01] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478262688 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:02] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478263248 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:03] [REQ] GET /api/party/poll?code=6211&playerId=player_3547&since=4&_t=1794478263789 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:03] [PEER] WebRTC Peer disconnected: catan3d-party-6211
+[2026-11-12 10:11:03] [REQ] GET /api/friends?userId=%23BC-7111 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:03] [REQ] GET /api/health | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:03] [REQ] GET /api/leaderboard | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:04] [REQ] POST /api/user/sync | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:05] [REQ] GET /api/leaderboard | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:05] [REQ] GET /api/friends?userId=%23BC-7111 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:09] [REQ] GET /api/friends?userId=%23BC-7111 | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:11:09] [REQ] GET /api/leaderboard | Data: {"clientIp":"149.36.50.138, 169.254.169.126"}
+[2026-11-12 10:18:10] [SYSTEM] Server process initialized on port 3000. Environment: development
+[2026-11-12 10:18:10] [SYSTEM] Selected Database Driver: SQLITE
+[2026-11-12 10:18:10] [SYSTEM] PeerJS Signaling Server active on: /peerjs & /catan/peerjs
+[2026-11-12 10:18:10] [SYSTEM] The Bears Catan Server running at: http://localhost:3000
+[2026-11-12 10:18:10] [SYSTEM] Admin Log Monitor URL: /catan/api/admin/logs?key=catan2026
+[2026-11-12 10:18:10] [DB] SQLite Schema initialized successfully.
+[2026-11-12 10:20:45] [GAME] Admin created room #5588
+[2026-11-12 10:20:45] [AUTH] Admin created user account: آرش کمانگیر (#BC-2989)
+[2026-11-12 10:20:45] [GAME] Admin recorded match #1 (Winner: آرش کمانگیر #BC-7777)
