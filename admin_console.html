@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>پنل مدیریت جامع | The Bears Catan</title>
+    <title>پنل مدیریت | The Bears Catan</title>
     <link rel="icon" type="image/png" href="/images/thebearcatan.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -201,16 +201,16 @@
                 <img src="/images/thebearcatan.png" alt="Logo" class="w-11 h-11 rounded-lg border border-amber-500/40 object-cover">
                 <div>
                     <h1 class="text-base font-bold text-white">ورود به پنل مدیریت کاتان</h1>
-                    <p class="text-xs text-slate-400">دسترسی محدود به مدیر سرور (/catan/admin)</p>
+                    <p class="text-xs text-slate-400">کلید امنیتی مدیریت را وارد کنید</p>
                 </div>
             </div>
             <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">کلید امنیتی مدیریت (Admin Key)</label>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">کلید مدیریت (Admin Key)</label>
                     <input type="password" id="admin-key-input" class="input-field font-mono-num text-left" dir="ltr" placeholder="Admin Secret Key..." required>
                     <p id="admin-auth-error" class="text-xs text-red-400 mt-1.5 hidden">کلید مدیریت وارد شده معتبر نیست.</p>
                 </div>
-                <button type="submit" class="btn-base btn-amber w-full py-2.5">تایید و ورود به کنسول مدیریت</button>
+                <button type="submit" class="btn-base btn-amber w-full py-2.5">ورود به پنل مدیریت</button>
             </form>
         </div>
     </div>
@@ -222,40 +222,31 @@
             <div class="flex items-center gap-2 text-sm truncate">
                 <span class="font-bold text-slate-100">پنل مدیریت The Bears Catan</span>
                 <span class="text-slate-600">/</span>
-                <span id="header-breadcrumb" class="text-amber-400 font-semibold truncate">نمای کلی سیستم</span>
+                <span id="header-breadcrumb" class="text-amber-400 font-semibold truncate">نمای کلی</span>
             </div>
         </div>
 
-        <div class="flex items-center gap-3 shrink-0">
-            <div class="hidden md:flex items-center gap-2 text-xs text-slate-400">
-                <span>دیتابیس: <strong id="hdr-db-type" class="text-slate-200 font-mono-num">SQLITE</strong></span>
-                <span>·</span>
-                <span>آپتایم: <strong id="hdr-uptime" class="text-slate-200 font-mono-num">0m</strong></span>
-                <span>·</span>
-                <span>بروزرسانی خودکار: <button id="btn-auto-sync" onclick="toggleAutoSync()" class="text-emerald-400 font-semibold hover:underline">فعال (۴ ثانیه)</button></span>
-            </div>
-            <button onclick="refreshCurrentTab(true)" class="btn-base btn-slate text-xs py-1.5 px-3">بروزرسانی داده</button>
-            <button onclick="runDbDiagnostics()" class="btn-base btn-slate text-xs py-1.5 px-3">تست دیتابیس</button>
-            <button onclick="logoutAdmin()" class="btn-base btn-danger text-xs py-1.5 px-3" title="خروج از پنل مدیریت">خروج</button>
+        <div class="flex items-center gap-2 shrink-0">
+            <button onclick="refreshCurrentTab(true)" class="btn-base btn-slate text-xs py-1.5 px-3">بروزرسانی</button>
+            <button onclick="logoutAdmin()" class="btn-base btn-danger text-xs py-1.5 px-3">خروج</button>
         </div>
     </header>
 
     <!-- Main Workspace Layout -->
     <div class="flex-1 flex flex-col lg:flex-row min-h-0">
 
-        <!-- Sidebar Navigation (260px) -->
-        <aside class="w-full lg:w-64 bg-slate-950 border-b lg:border-b-0 lg:border-l border-slate-800 p-3 flex flex-col justify-between shrink-0">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full lg:w-60 bg-slate-950 border-b lg:border-b-0 lg:border-l border-slate-800 p-3 flex flex-col justify-between shrink-0">
             <nav class="space-y-1 flex lg:flex-col overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 gap-1 lg:gap-1">
                 <button onclick="switchTab('overview')" id="nav-overview" class="nav-item active shrink-0 lg:w-full">
-                    <span>نمای کلی و مانیتورینگ</span>
-                    <span class="text-xs font-mono-num text-slate-400" id="badge-overview">LIVE</span>
+                    <span>نمای کلی</span>
                 </button>
                 <button onclick="switchTab('logs')" id="nav-logs" class="nav-item shrink-0 lg:w-full">
-                    <span>لاگ کامل بازی و سرور</span>
+                    <span>لاگ کامل بازی</span>
                     <span class="text-xs font-mono-num text-slate-400" id="badge-logs">0</span>
                 </button>
                 <button onclick="switchTab('users')" id="nav-users" class="nav-item shrink-0 lg:w-full">
-                    <span>ثبت‌نامی‌ها و کاربران</span>
+                    <span>ثبت‌نامی‌ها</span>
                     <span class="text-xs font-mono-num text-slate-400" id="badge-users">0</span>
                 </button>
                 <button onclick="switchTab('rooms')" id="nav-rooms" class="nav-item shrink-0 lg:w-full">
@@ -267,29 +258,9 @@
                     <span class="text-xs font-mono-num text-slate-400" id="badge-scores">0</span>
                 </button>
                 <button onclick="switchTab('settings')" id="nav-settings" class="nav-item shrink-0 lg:w-full">
-                    <span>تنظیمات سایت و بازی</span>
-                    <span class="text-xs font-mono-num text-slate-500">CFG</span>
+                    <span>تنظیمات سایت</span>
                 </button>
             </nav>
-
-            <!-- Server Info Footer inside Sidebar -->
-            <div class="hidden lg:block mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-400 space-y-2">
-                <div class="flex justify-between">
-                    <span>مسیر اختصاصی:</span>
-                    <span class="font-mono-num text-slate-200" dir="ltr">/catan/admin</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>حافظه مصرفی سرور:</span>
-                    <span id="side-memory" class="font-mono-num text-slate-200" dir="ltr">-- MB</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>وضعیت تعمیرات:</span>
-                    <span id="side-maint" class="text-emerald-400 font-semibold">عادی (فعال)</span>
-                </div>
-                <div class="pt-2">
-                    <a href="/catan/" target="_blank" class="btn-base btn-slate w-full text-xs justify-center">مشاهده صفحه لابی بازی ↗</a>
-                </div>
-            </div>
         </aside>
 
         <!-- Main Viewport -->
@@ -302,53 +273,34 @@
             </div>
 
             <!-- ========================================================== -->
-            <!-- TAB 1: OVERVIEW (نمای کلی و مانیتورینگ)                    -->
+            <!-- TAB 1: OVERVIEW (نمای کلی)                                 -->
             <!-- ========================================================== -->
             <section id="tab-overview" class="space-y-6">
-                <!-- 6 High-Density KPI Blocks -->
-                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">کل کاربران ثبت‌شده</div>
+                        <div class="text-xs text-slate-400 mb-1">کاربران ثبت‌نامی</div>
                         <div id="kpi-total-users" class="text-2xl font-bold font-mono-num text-white">0</div>
-                        <div id="kpi-users-sub" class="text-[11px] text-slate-400 mt-1">۰ اکانت رسمی · ۰ مهمان</div>
                     </div>
                     <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">روم‌های فعال فعلی</div>
+                        <div class="text-xs text-slate-400 mb-1">روم‌های فعال</div>
                         <div id="kpi-active-rooms" class="text-2xl font-bold font-mono-num text-amber-400">0</div>
-                        <div id="kpi-rooms-sub" class="text-[11px] text-slate-400 mt-1">۰ بازیکن داخل لابی/بازی</div>
                     </div>
                     <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">مسابقات پایان‌یافته</div>
+                        <div class="text-xs text-slate-400 mb-1">مسابقات برگزارشده</div>
                         <div id="kpi-total-matches" class="text-2xl font-bold font-mono-num text-emerald-400">0</div>
-                        <div id="kpi-matches-sub" class="text-[11px] text-slate-400 mt-1">ثبت‌شده در تاریخچه</div>
                     </div>
                     <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">مجموع XP توزیع‌شده</div>
-                        <div id="kpi-total-xp" class="text-2xl font-bold font-mono-num text-sky-400">0</div>
-                        <div id="kpi-xp-sub" class="text-[11px] text-slate-400 mt-1">امتیاز تجربه بازیکنان</div>
-                    </div>
-                    <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">کل رویدادهای لاگ</div>
+                        <div class="text-xs text-slate-400 mb-1">کل لاگ‌های ثبت‌شده</div>
                         <div id="kpi-total-logs" class="text-2xl font-bold font-mono-num text-slate-100">0</div>
-                        <div id="kpi-logs-sub" class="text-[11px] text-slate-400 mt-1">در بافر زنده سرور</div>
-                    </div>
-                    <div class="surface-panel p-4">
-                        <div class="text-xs text-slate-400 mb-1">خطاها و هشدارها</div>
-                        <div id="kpi-error-logs" class="text-2xl font-bold font-mono-num text-rose-400">0</div>
-                        <div id="kpi-error-sub" class="text-[11px] text-slate-400 mt-1">خطای ثبت‌شده اخیر</div>
                     </div>
                 </div>
 
-                <!-- Two-Column Live Snapshot: Active Rooms & Recent Registrations -->
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                     <!-- Active Rooms Snapshot -->
                     <div class="surface-panel overflow-hidden flex flex-col">
                         <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                            <div>
-                                <h2 class="text-sm font-bold text-white">روم‌ها و لابی‌های در جریان</h2>
-                                <p class="text-xs text-slate-400">وضعیت زنده اتاق‌های ساخته شده روی سرور</p>
-                            </div>
-                            <button onclick="switchTab('rooms')" class="text-xs text-amber-400 hover:underline font-semibold">مدیریت همه روم‌ها ←</button>
+                            <h2 class="text-sm font-bold text-white">روم‌های ساخته شده فعال</h2>
+                            <button onclick="switchTab('rooms')" class="text-xs text-amber-400 hover:underline font-semibold">مشاهده همه ←</button>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="data-table">
@@ -358,12 +310,11 @@
                                         <th>میزبان</th>
                                         <th>بازیکنان</th>
                                         <th>وضعیت</th>
-                                        <th>پیام‌ها</th>
                                         <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="overview-rooms-tbody">
-                                    <tr><td colspan="6" class="text-center text-slate-500 py-6">در حال بارگذاری...</td></tr>
+                                    <tr><td colspan="5" class="text-center text-slate-500 py-6">هیچ رومی فعال نیست.</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -372,11 +323,8 @@
                     <!-- Latest Users Snapshot -->
                     <div class="surface-panel overflow-hidden flex flex-col">
                         <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                            <div>
-                                <h2 class="text-sm font-bold text-white">آخرین ثبت‌نامی‌ها و کاربران فعال</h2>
-                                <p class="text-xs text-slate-400">جدیدترین حساب‌های ایجادشده یا متصل به سرور</p>
-                            </div>
-                            <button onclick="switchTab('users')" class="text-xs text-amber-400 hover:underline font-semibold">مشاهده همه کاربران ←</button>
+                            <h2 class="text-sm font-bold text-white">آخرین ثبت‌نامی‌ها</h2>
+                            <button onclick="switchTab('users')" class="text-xs text-amber-400 hover:underline font-semibold">مشاهده همه ←</button>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="data-table">
@@ -384,14 +332,13 @@
                                     <tr>
                                         <th>شناسه</th>
                                         <th>نام کاربری / ایمیل</th>
-                                        <th>نوع حساب</th>
                                         <th>سطح / XP</th>
                                         <th>برد / بازی</th>
                                         <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="overview-users-tbody">
-                                    <tr><td colspan="6" class="text-center text-slate-500 py-6">در حال بارگذاری...</td></tr>
+                                    <tr><td colspan="5" class="text-center text-slate-500 py-6">هنوز کاربری ثبت‌نام نکرده است.</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -400,24 +347,21 @@
 
                 <!-- Live Game & Server Log Stream Preview -->
                 <div class="surface-panel overflow-hidden">
-                    <div class="px-4 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                        <div>
-                            <h2 class="text-sm font-bold text-white">آخرین لاگ‌های بازی و سرور (زنده)</h2>
-                            <p class="text-xs text-slate-400">شامل حرکت‌های بازی، ساخت لابی، ورود کاربران و تراکنش‌های دیتابیس</p>
-                        </div>
-                        <button onclick="switchTab('logs')" class="text-xs text-amber-400 hover:underline font-semibold">مشاهده لاگ کامل و فیلتر پیشرفته ←</button>
+                    <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                        <h2 class="text-sm font-bold text-white">آخرین لاگ‌های بازی</h2>
+                        <button onclick="switchTab('logs')" class="text-xs text-amber-400 hover:underline font-semibold">لاگ کامل ←</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="data-table font-mono-num text-xs">
                             <thead>
                                 <tr>
-                                    <th style="width:155px">زمان (UTC)</th>
+                                    <th style="width:155px">زمان</th>
                                     <th style="width:95px">دسته</th>
-                                    <th>شرح رویداد و جزئیات</th>
+                                    <th>شرح رویداد</th>
                                 </tr>
                             </thead>
                             <tbody id="overview-logs-tbody">
-                                <tr><td colspan="3" class="text-center text-slate-500 py-6">در حال دریافت لاگ‌ها...</td></tr>
+                                <tr><td colspan="3" class="text-center text-slate-500 py-6">هیچ لاگی ثبت نشده است.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -425,24 +369,21 @@
             </section>
 
             <!-- ========================================================== -->
-            <!-- TAB 2: FULL GAME & SERVER LOGS (لاگ کامل بازی و سرور)      -->
+            <!-- TAB 2: FULL GAME & SERVER LOGS (لاگ کامل بازی)             -->
             <!-- ========================================================== -->
             <section id="tab-logs" class="space-y-4 hidden">
                 <div class="surface-panel p-4 flex flex-wrap items-center justify-between gap-3">
                     <div class="flex flex-wrap items-center gap-1.5">
                         <button onclick="setLogFilter('ALL')" id="log-filter-ALL" class="btn-base btn-amber text-xs py-1 px-2.5">همه</button>
-                        <button onclick="setLogFilter('GAME')" id="log-filter-GAME" class="btn-base btn-slate text-xs py-1 px-2.5">GAME (داخل بازی)</button>
-                        <button onclick="setLogFilter('PEER')" id="log-filter-PEER" class="btn-base btn-slate text-xs py-1 px-2.5">PEER (لابی و شبکه)</button>
-                        <button onclick="setLogFilter('AUTH')" id="log-filter-AUTH" class="btn-base btn-slate text-xs py-1 px-2.5">AUTH (ثبت‌نام و ورود)</button>
+                        <button onclick="setLogFilter('GAME')" id="log-filter-GAME" class="btn-base btn-slate text-xs py-1 px-2.5">GAME (بازی)</button>
+                        <button onclick="setLogFilter('PEER')" id="log-filter-PEER" class="btn-base btn-slate text-xs py-1 px-2.5">PEER (شبکه)</button>
+                        <button onclick="setLogFilter('AUTH')" id="log-filter-AUTH" class="btn-base btn-slate text-xs py-1 px-2.5">AUTH (کاربران)</button>
                         <button onclick="setLogFilter('DB')" id="log-filter-DB" class="btn-base btn-slate text-xs py-1 px-2.5">DB (دیتابیس)</button>
-                        <button onclick="setLogFilter('REQ')" id="log-filter-REQ" class="btn-base btn-slate text-xs py-1 px-2.5">REQ (درخواست API)</button>
-                        <button onclick="setLogFilter('WARN')" id="log-filter-WARN" class="btn-base btn-slate text-xs py-1 px-2.5">WARN (هشدار)</button>
                         <button onclick="setLogFilter('ERROR')" id="log-filter-ERROR" class="btn-base btn-slate text-xs py-1 px-2.5">ERROR (خطا)</button>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                        <input type="text" id="log-search-input" oninput="renderFullLogs()" class="input-field md:w-64 text-xs" placeholder="جستجو در متن لاگ، کد روم، نام بازیکن...">
-                        <button onclick="exportLogsAsJson()" class="btn-base btn-slate text-xs">دانلود JSON</button>
+                        <input type="text" id="log-search-input" oninput="renderFullLogs()" class="input-field md:w-64 text-xs" placeholder="جستجو در لاگ‌ها...">
                         <button onclick="clearAllServerLogs()" class="btn-base btn-danger text-xs">پاک‌سازی لاگ‌ها</button>
                     </div>
                 </div>
@@ -452,13 +393,13 @@
                         <table class="data-table font-mono-num text-xs">
                             <thead class="sticky top-0 z-10">
                                 <tr>
-                                    <th style="width:160px">TIMESTAMP</th>
-                                    <th style="width:100px">LEVEL</th>
-                                    <th>MESSAGE & PAYLOAD</th>
+                                    <th style="width:160px">زمان</th>
+                                    <th style="width:100px">دسته</th>
+                                    <th>شرح رویداد</th>
                                 </tr>
                             </thead>
                             <tbody id="full-logs-tbody">
-                                <tr><td colspan="3" class="text-center text-slate-500 py-8">در حال بارگذاری لاگ‌ها...</td></tr>
+                                <tr><td colspan="3" class="text-center text-slate-500 py-8">هیچ لاگی ثبت نشده است.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -466,19 +407,13 @@
             </section>
 
             <!-- ========================================================== -->
-            <!-- TAB 3: REGISTERED USERS (ثبت‌نامی‌ها و کاربران)            -->
+            <!-- TAB 3: REGISTERED USERS (ثبت‌نامی‌ها)                      -->
             <!-- ========================================================== -->
             <section id="tab-users" class="space-y-4 hidden">
                 <div class="surface-panel p-4 flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="setUserFilter('ALL')" id="user-filter-ALL" class="btn-base btn-amber text-xs py-1.5 px-3">همه کاربران</button>
-                        <button onclick="setUserFilter('REGISTERED')" id="user-filter-REGISTERED" class="btn-base btn-slate text-xs py-1.5 px-3">فقط ثبت‌نامی‌ها (رسمی)</button>
-                        <button onclick="setUserFilter('GUEST')" id="user-filter-GUEST" class="btn-base btn-slate text-xs py-1.5 px-3">کاربران مهمان</button>
-                    </div>
-
-                    <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                        <input type="text" id="user-search-input" oninput="renderUsersTable()" class="input-field md:w-64 text-xs" placeholder="جستجو با نام، ایمیل یا کد #BC...">
-                        <button onclick="openCreateUserModal()" class="btn-base btn-amber text-xs">+ ساخت کاربر جدید</button>
+                    <h2 class="text-sm font-bold text-white">لیست کاربران ثبت‌نام شده</h2>
+                    <div class="w-full md:w-72">
+                        <input type="text" id="user-search-input" oninput="renderUsersTable()" class="input-field text-xs" placeholder="جستجو با نام، ایمیل یا کد #BC...">
                     </div>
                 </div>
 
@@ -489,18 +424,17 @@
                                 <tr>
                                     <th>شناسه (#BC)</th>
                                     <th>نام بازیکن</th>
-                                    <th>ایمیل ثبت‌نامی</th>
-                                    <th>نوع عضویت</th>
+                                    <th>ایمیل</th>
                                     <th>لقب</th>
                                     <th>سطح (Level)</th>
-                                    <th>مجموع XP</th>
+                                    <th>امتیاز (XP)</th>
                                     <th>برد / بازی</th>
                                     <th>آخرین فعالیت</th>
-                                    <th>عملیات مدیریت</th>
+                                    <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody id="users-table-tbody">
-                                <tr><td colspan="10" class="text-center text-slate-500 py-8">در حال بارگذاری لیست کاربران...</td></tr>
+                                <tr><td colspan="9" class="text-center text-slate-500 py-8">هنوز کاربری ثبت‌نام نکرده است.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -508,18 +442,11 @@
             </section>
 
             <!-- ========================================================== -->
-            <!-- TAB 4: CREATED ROOMS (روم‌های ساخته شده و فعال)            -->
+            <!-- TAB 4: CREATED ROOMS (روم‌های ساخته شده)                   -->
             <!-- ========================================================== -->
             <section id="tab-rooms" class="space-y-4 hidden">
-                <div class="surface-panel p-4 flex flex-wrap items-center justify-between gap-3">
-                    <div>
-                        <h2 class="text-sm font-bold text-white">مدیریت روم‌ها و لابی‌های ساخته شده</h2>
-                        <p class="text-xs text-slate-400">مشاهده بازیکنان حاضر در هر روم، ارسال پیام سیستم به داخل بازی، یا بستن روم</p>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="openBroadcastModal('ALL')" class="btn-base btn-slate text-xs">ارسال اعلان به همه روم‌ها</button>
-                        <button onclick="openCreateRoomModal()" class="btn-base btn-amber text-xs">+ ساخت روم جدید روی سرور</button>
-                    </div>
+                <div class="surface-panel p-4 flex items-center justify-between">
+                    <h2 class="text-sm font-bold text-white">لیست روم‌های ساخته شده توسط بازیکنان</h2>
                 </div>
 
                 <div class="surface-panel overflow-hidden">
@@ -530,9 +457,9 @@
                                     <th>کد روم</th>
                                     <th>میزبان (Host)</th>
                                     <th>وضعیت بازی</th>
-                                    <th>اعضای حاضر در روم (انسان / بات)</th>
+                                    <th>بازیکنان حاضر در روم</th>
                                     <th>Seed نقشه</th>
-                                    <th>تعداد پیام رله</th>
+                                    <th>تعداد پیام‌ها</th>
                                     <th>آخرین فعالیت</th>
                                     <th>عملیات</th>
                                 </tr>
@@ -546,25 +473,16 @@
             </section>
 
             <!-- ========================================================== -->
-            <!-- TAB 5: SCORES & MATCHES (امتیازها و تاریخچه مسابقات)       -->
+            <!-- TAB 5: SCORES & MATCHES (امتیازها و مسابقات)               -->
             <!-- ========================================================== -->
             <section id="tab-scores" class="space-y-6 hidden">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex items-center gap-2">
-                        <button onclick="switchScoreSubtab('leaderboard')" id="subtab-leaderboard" class="btn-base btn-amber text-xs">جدول رتبه‌بندی امتیازات (Leaderboard)</button>
-                        <button onclick="switchScoreSubtab('matches')" id="subtab-matches" class="btn-base btn-slate text-xs">تاریخچه کامل مسابقات (Match History)</button>
-                    </div>
-                    <button onclick="openRecordMatchModal()" class="btn-base btn-amber text-xs">+ ثبت دستی نتیجه مسابقه</button>
+                <div class="flex items-center gap-2">
+                    <button onclick="switchScoreSubtab('leaderboard')" id="subtab-leaderboard" class="btn-base btn-amber text-xs">جدول امتیازات بازیکنان</button>
+                    <button onclick="switchScoreSubtab('matches')" id="subtab-matches" class="btn-base btn-slate text-xs">تاریخچه مسابقات</button>
                 </div>
 
                 <!-- Subview A: Leaderboard -->
                 <div id="score-view-leaderboard" class="surface-panel overflow-hidden">
-                    <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">رده‌بندی امتیازات و قهرمانان کاتان</h3>
-                            <p class="text-xs text-slate-400">امکان ویرایش مستقیم امتیاز تجربه (XP)، تعداد برد و سطح هر بازیکن</p>
-                        </div>
-                    </div>
                     <div class="overflow-x-auto">
                         <table class="data-table">
                             <thead>
@@ -582,7 +500,7 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-table-tbody">
-                                <tr><td colspan="10" class="text-center text-slate-500 py-8">در حال بارگذاری جدول امتیازات...</td></tr>
+                                <tr><td colspan="10" class="text-center text-slate-500 py-8">هنوز امتیازی ثبت نشده است.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -590,27 +508,21 @@
 
                 <!-- Subview B: Match History -->
                 <div id="score-view-matches" class="surface-panel overflow-hidden hidden">
-                    <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">تاریخچه مسابقات ثبت‌شده</h3>
-                            <p class="text-xs text-slate-400">جزئیات کامل برندگان، کد روم و امتیاز پیروزی (VP) تمام شرکت‌کنندگان</p>
-                        </div>
-                    </div>
                     <div class="overflow-x-auto">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>شماره بازی</th>
+                                    <th>شماره</th>
                                     <th>کد روم</th>
                                     <th>برنده مسابقه</th>
                                     <th>تعداد بازیکنان</th>
-                                    <th>جزئیات امتیاز بازیکنان (VP)</th>
+                                    <th>امتیاز بازیکنان (VP)</th>
                                     <th>زمان ثبت</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody id="matches-table-tbody">
-                                <tr><td colspan="7" class="text-center text-slate-500 py-8">در حال بارگذاری تاریخچه مسابقات...</td></tr>
+                                <tr><td colspan="7" class="text-center text-slate-500 py-8">هیچ مسابقه‌ای ثبت نشده است.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -618,25 +530,24 @@
             </section>
 
             <!-- ========================================================== -->
-            <!-- TAB 6: SITE & GAME SETTINGS (تنظیمات سایت و بازی)          -->
+            <!-- TAB 6: SITE & GAME SETTINGS (تنظیمات سایت)                 -->
             <!-- ========================================================== -->
             <section id="tab-settings" class="space-y-6 hidden">
                 <form id="site-settings-form" onsubmit="saveSiteSettings(event)" class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                     <!-- General & Announcement Settings -->
                     <div class="surface-panel p-5 space-y-4">
                         <div class="border-b border-slate-800 pb-3">
-                            <h3 class="text-sm font-bold text-white">تنظیمات عمومی سایت و بنر اطلاع‌رسانی</h3>
-                            <p class="text-xs text-slate-400">تغییرات بلافاصله در صفحه لابی و بازی اعمال می‌شوند</p>
+                            <h3 class="text-sm font-bold text-white">تنظیمات عمومی سایت</h3>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">عنوان اصلی سایت (Site Title)</label>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">عنوان سایت (Site Title)</label>
                             <input type="text" id="cfg-siteTitle" class="input-field" placeholder="The Bears Catan - پنل کاربری و هاب آنلاین">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">متن اطلاعیه / بنر بالای لابی (Announcement)</label>
-                            <textarea id="cfg-announcementText" rows="2" class="input-field" placeholder="مثال: تورنمنت هفتگی کاتان امشب ساعت ۲۲ برگزار می‌شود!"></textarea>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">متن اطلاعیه بالای لابی</label>
+                            <textarea id="cfg-announcementText" rows="2" class="input-field" placeholder="متن اطلاعیه..."></textarea>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
@@ -657,21 +568,20 @@
 
                             <label class="flex items-center gap-2.5 p-3 rounded border border-slate-800 bg-slate-950/60 cursor-pointer">
                                 <input type="checkbox" id="cfg-allowGuestLogin" class="w-4 h-4 accent-emerald-500">
-                                <span class="text-xs font-semibold text-slate-200">ورود بازیکنان به صورت مهمان</span>
+                                <span class="text-xs font-semibold text-slate-200">ورود بازیکنان مهمان</span>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Game Rules, XP & Network Settings -->
+                    <!-- Game Rules, XP & Database Maintenance -->
                     <div class="surface-panel p-5 space-y-4">
                         <div class="border-b border-slate-800 pb-3">
-                            <h3 class="text-sm font-bold text-white">تنظیمات قوانین بازی، امتیازات و شبکه</h3>
-                            <p class="text-xs text-slate-400">مدیریت پاداش‌های XP، سقف روم‌ها و سرورهای STUN/TURN</p>
+                            <h3 class="text-sm font-bold text-white">تنظیمات بازی و دیتابیس</h3>
                         </div>
 
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 mb-1">امتیاز پیروزی (VP هدف)</label>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">امتیاز پیروزی (VP)</label>
                                 <input type="number" id="cfg-victoryPointsTarget" min="5" max="20" class="input-field font-mono-num">
                             </div>
                             <div>
@@ -683,7 +593,7 @@
                                 <input type="number" id="cfg-maxActiveRooms" min="5" max="1000" class="input-field font-mono-num">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 mb-1">پاداش پایه برد (XP)</label>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">پاداش برد (XP)</label>
                                 <input type="number" id="cfg-winBonusXp" min="0" max="5000" class="input-field font-mono-num">
                             </div>
                             <div>
@@ -691,25 +601,14 @@
                                 <input type="number" id="cfg-participationXp" min="0" max="2000" class="input-field font-mono-num">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-300 mb-1">XP هدیه ثبت‌نام اولیه</label>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">XP هدیه ثبت‌نام</label>
                                 <input type="number" id="cfg-welcomeBonusXp" min="0" max="10000" class="input-field font-mono-num">
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 mb-1">آدرس STUN سفارشی</label>
-                                <input type="text" id="cfg-customStunUrl" class="input-field font-mono-num text-left" dir="ltr" placeholder="stun:stun.l.google.com:19302">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 mb-1">آدرس TURN سفارشی</label>
-                                <input type="text" id="cfg-customTurnUrl" class="input-field font-mono-num text-left" dir="ltr" placeholder="turn:openrelay.metered.ca:80">
-                            </div>
-                        </div>
-
-                        <div class="pt-2 flex items-center justify-end gap-3">
-                            <button type="button" onclick="runDbDiagnostics()" class="btn-base btn-slate">اجرای تست سلامت دیتابیس</button>
-                            <button type="submit" class="btn-base btn-amber px-6">ذخیره تمام تنظیمات سایت</button>
+                        <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                            <button type="button" onclick="resetFullDatabase()" class="btn-base btn-danger text-xs">پاک‌سازی کامل دیتابیس (صفر کردن اطلاعات)</button>
+                            <button type="submit" class="btn-base btn-amber px-6">ذخیره تنظیمات</button>
                         </div>
                     </div>
                 </form>
@@ -719,7 +618,7 @@
     </div>
 
     <!-- ================================================================== -->
-    <!-- MODAL 1: EDIT / CREATE USER                                        -->
+    <!-- MODAL 1: EDIT USER                                                 -->
     <!-- ================================================================== -->
     <div id="user-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
         <div class="surface-panel max-w-lg w-full p-5 space-y-4 shadow-2xl">
@@ -728,7 +627,6 @@
                 <button onclick="closeUserModal()" class="text-slate-400 hover:text-white">✕</button>
             </div>
             <form id="user-modal-form" onsubmit="submitUserModal(event)" class="space-y-3">
-                <input type="hidden" id="um-mode" value="edit">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs text-slate-300 mb-1">شناسه کاربری (#BC)</label>
@@ -740,18 +638,18 @@
                     </div>
                     <div>
                         <label class="block text-xs text-slate-300 mb-1">آدرس ایمیل</label>
-                        <input type="email" id="um-email" class="input-field font-mono-num text-left" dir="ltr" placeholder="user@example.com">
+                        <input type="email" id="um-email" class="input-field font-mono-num text-left" dir="ltr">
                     </div>
                     <div>
                         <label class="block text-xs text-slate-300 mb-1">رمز عبور جدید (اختیاری)</label>
                         <input type="password" id="um-password" class="input-field font-mono-num text-left" dir="ltr" placeholder="خالی = بدون تغییر">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-300 mb-1">لقب بازیکن (Title)</label>
-                        <input type="text" id="um-title" class="input-field" placeholder="مهاجر کاتان">
+                        <label class="block text-xs text-slate-300 mb-1">لقب بازیکن</label>
+                        <input type="text" id="um-title" class="input-field">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-300 mb-1">قاب آواتار (Frame)</label>
+                        <label class="block text-xs text-slate-300 mb-1">قاب آواتار</label>
                         <select id="um-frame" class="input-field">
                             <option value="frame-wood">چوبی (frame-wood)</option>
                             <option value="frame-silver">نقره‌ای (frame-silver)</option>
@@ -764,7 +662,7 @@
                         <input type="number" id="um-level" min="1" class="input-field font-mono-num">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-300 mb-1">مجموع امتیاز تجربه (XP)</label>
+                        <label class="block text-xs text-slate-300 mb-1">مجموع امتیاز (XP)</label>
                         <input type="number" id="um-totalXp" min="0" class="input-field font-mono-num">
                     </div>
                     <div>
@@ -776,15 +674,9 @@
                         <input type="number" id="um-gamesWon" min="0" class="input-field font-mono-num">
                     </div>
                 </div>
-                <div class="pt-2 flex items-center justify-between">
-                    <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
-                        <input type="checkbox" id="um-isGuest" class="w-4 h-4 accent-amber-500">
-                        <span>حساب مهمان (Guest)</span>
-                    </label>
-                    <div class="flex items-center gap-2">
-                        <button type="button" onclick="closeUserModal()" class="btn-base btn-slate">انصراف</button>
-                        <button type="submit" class="btn-base btn-amber">ذخیره تغییرات</button>
-                    </div>
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeUserModal()" class="btn-base btn-slate">انصراف</button>
+                    <button type="submit" class="btn-base btn-amber">ذخیره تغییرات</button>
                 </div>
             </form>
         </div>
@@ -816,30 +708,14 @@
         </div>
     </div>
 
-    <!-- ================================================================== -->
-    <!-- MODAL 3: CREATE ROOM / RECORD MATCH / DB DIAGNOSTICS               -->
-    <!-- ================================================================== -->
-    <div id="generic-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-        <div class="surface-panel max-w-lg w-full p-5 space-y-4 shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 id="gm-title" class="text-sm font-bold text-white">عملیات مدیریت</h3>
-                <button onclick="closeGenericModal()" class="text-slate-400 hover:text-white">✕</button>
-            </div>
-            <div id="gm-body" class="text-xs space-y-3"></div>
-        </div>
-    </div>
-
     <script>
-        // Detect API base automatically (supports both /catan/admin and /admin)
         const API_PREFIX = window.location.pathname.startsWith('/catan') ? '/catan/api/admin' : '/api/admin';
         const urlParams = new URLSearchParams(window.location.search);
         let adminKey = urlParams.get('key') || localStorage.getItem('catan_admin_key') || '';
 
         let currentTab = 'overview';
         let currentLogFilter = 'ALL';
-        let currentUserFilter = 'ALL';
         let autoSyncTimer = null;
-        let isAutoSync = true;
 
         let state = {
             overview: null,
@@ -855,7 +731,7 @@
             const box = document.getElementById('admin-toast');
             document.getElementById('admin-toast-text').textContent = msg;
             box.classList.remove('hidden');
-            setTimeout(() => box.classList.add('hidden'), 4500);
+            setTimeout(() => box.classList.add('hidden'), 4000);
         }
 
         function escapeHtml(str) {
@@ -865,14 +741,6 @@
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;');
-        }
-
-        function formatUptime(sec) {
-            const s = Number(sec) || 0;
-            const h = Math.floor(s / 3600);
-            const m = Math.floor((s % 3600) / 60);
-            if (h > 0) return `${h}h ${m}m`;
-            return `${m}m ${s % 60}s`;
         }
 
         function formatRelativeTime(ts) {
@@ -931,12 +799,12 @@
         function switchTab(tab) {
             currentTab = tab;
             const titles = {
-                overview: 'نمای کلی و مانیتورینگ زنده',
-                logs: 'لاگ کامل بازی و سرور',
-                users: 'مدیریت ثبت‌نامی‌ها و کاربران',
-                rooms: 'مدیریت روم‌ها و لابی‌های فعال',
-                scores: 'امتیازها، لیدربرد و تاریخچه مسابقات',
-                settings: 'تنظیمات سایت، قوانین بازی و شبکه'
+                overview: 'نمای کلی',
+                logs: 'لاگ کامل بازی',
+                users: 'ثبت‌نامی‌ها',
+                rooms: 'روم‌های ساخته شده',
+                scores: 'امتیازها و مسابقات',
+                settings: 'تنظیمات سایت'
             };
             document.getElementById('header-breadcrumb').textContent = titles[tab] || '';
 
@@ -991,7 +859,7 @@
                         populateSettingsForm(state.settings);
                     }
                 }
-                if (manual) showToast('اطلاعات پنل مدیریت بروزرسانی شد.');
+                if (manual) showToast('اطلاعات بروزرسانی شد.');
             } catch (err) {
                 if (err.message !== 'UNAUTHORIZED') {
                     console.warn('Admin sync error:', err);
@@ -1007,26 +875,10 @@
             state.settings = data.settings || {};
 
             const kpi = data.kpi || {};
-            document.getElementById('hdr-db-type').textContent = (kpi.dbType || 'sqlite').toUpperCase();
-            document.getElementById('hdr-uptime').textContent = formatUptime(kpi.uptimeSec);
-            document.getElementById('side-memory').textContent = `${kpi.memoryMb || 0} MB`;
-            const maintEl = document.getElementById('side-maint');
-            if (state.settings.maintenanceMode) {
-                maintEl.textContent = 'حالت تعمیرات (بسته)';
-                maintEl.className = 'text-rose-400 font-semibold';
-            } else {
-                maintEl.textContent = 'عادی (فعال)';
-                maintEl.className = 'text-emerald-400 font-semibold';
-            }
-
             document.getElementById('kpi-total-users').textContent = kpi.totalUsers || 0;
-            document.getElementById('kpi-users-sub').textContent = `${kpi.registeredUsers || 0} رسمی · ${kpi.guestUsers || 0} مهمان`;
             document.getElementById('kpi-active-rooms').textContent = kpi.activeRooms || 0;
-            document.getElementById('kpi-rooms-sub').textContent = `${kpi.activePlayersInRooms || 0} بازیکن در روم‌ها`;
             document.getElementById('kpi-total-matches').textContent = kpi.totalMatches || 0;
-            document.getElementById('kpi-total-xp').textContent = (kpi.totalXp || 0).toLocaleString('en-US');
             document.getElementById('kpi-total-logs').textContent = kpi.totalLogs || 0;
-            document.getElementById('kpi-error-logs').textContent = kpi.errorLogs || 0;
 
             document.getElementById('badge-logs').textContent = kpi.totalLogs || 0;
             document.getElementById('badge-users').textContent = kpi.totalUsers || 0;
@@ -1036,7 +888,7 @@
             // Render Overview Rooms
             const roomsTbody = document.getElementById('overview-rooms-tbody');
             if (!state.rooms.length) {
-                roomsTbody.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-6">در حال حاضر هیچ رومی فعال نیست.</td></tr>`;
+                roomsTbody.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">هیچ رومی فعال نیست.</td></tr>`;
             } else {
                 roomsTbody.innerHTML = state.rooms.slice(0, 6).map(r => {
                     const stBadge = r.status === 'in_game'
@@ -1048,9 +900,8 @@
                             <td>${escapeHtml(r.hostName)}</td>
                             <td class="font-mono-num">${r.humanCount} انسان · ${r.botCount} بات</td>
                             <td>${stBadge}</td>
-                            <td class="font-mono-num">${r.messageCount}</td>
                             <td>
-                                <button onclick="inspectRoom('${escapeHtml(r.code)}')" class="text-xs text-sky-400 hover:underline ml-2">لاگ روم</button>
+                                <button onclick="inspectRoom('${escapeHtml(r.code)}')" class="text-xs text-sky-400 hover:underline ml-2">مشاهده</button>
                                 <button onclick="deleteRoomByCode('${escapeHtml(r.code)}')" class="text-xs text-rose-400 hover:underline">بستن</button>
                             </td>
                         </tr>
@@ -1061,16 +912,15 @@
             // Render Overview Users
             const usersTbody = document.getElementById('overview-users-tbody');
             if (!state.users.length) {
-                usersTbody.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-6">هنوز کاربری ثبت نشده است.</td></tr>`;
+                usersTbody.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-6">هنوز کاربری ثبت‌نام نکرده است.</td></tr>`;
             } else {
                 usersTbody.innerHTML = state.users.slice(0, 6).map(u => `
                     <tr>
                         <td class="font-mono-num text-xs text-amber-400" dir="ltr">${escapeHtml(u.friend_id)}</td>
                         <td>
                             <div class="font-semibold text-slate-100">${escapeHtml(u.username)}</div>
-                            <div class="text-[11px] text-slate-400 font-mono-num" dir="ltr">${escapeHtml(u.email || 'بدون ایمیل')}</div>
+                            <div class="text-[11px] text-slate-400 font-mono-num" dir="ltr">${escapeHtml(u.email || '—')}</div>
                         </td>
-                        <td>${u.is_guest ? '<span class="text-slate-400 text-xs">مهمان</span>' : '<span class="text-emerald-400 text-xs font-semibold">ثبت‌نامی</span>'}</td>
                         <td class="font-mono-num">Lv.${u.level || 1} · ${u.total_xp || 0} XP</td>
                         <td class="font-mono-num">${u.games_won || 0} / ${u.games_played || 0}</td>
                         <td>
@@ -1083,9 +933,9 @@
             // Render Overview Logs
             const logsTbody = document.getElementById('overview-logs-tbody');
             if (!state.logs.length) {
-                logsTbody.innerHTML = `<tr><td colspan="3" class="text-center text-slate-500 py-6">لاگی ثبت نشده است.</td></tr>`;
+                logsTbody.innerHTML = `<tr><td colspan="3" class="text-center text-slate-500 py-6">هیچ لاگی ثبت نشده است.</td></tr>`;
             } else {
-                logsTbody.innerHTML = state.logs.slice(0, 12).map(l => `
+                logsTbody.innerHTML = state.logs.slice(0, 10).map(l => `
                     <tr>
                         <td class="text-slate-400" dir="ltr">${escapeHtml(l.timestamp)}</td>
                         <td><span class="level-tag level-${escapeHtml(l.level)}">${escapeHtml(l.level)}</span></td>
@@ -1103,7 +953,7 @@
         // =====================================================================
         function setLogFilter(level) {
             currentLogFilter = level;
-            ['ALL', 'GAME', 'PEER', 'AUTH', 'DB', 'REQ', 'WARN', 'ERROR'].forEach(lvl => {
+            ['ALL', 'GAME', 'PEER', 'AUTH', 'DB', 'ERROR'].forEach(lvl => {
                 const btn = document.getElementById(`log-filter-${lvl}`);
                 if (btn) {
                     btn.className = lvl === level ? 'btn-base btn-amber text-xs py-1 px-2.5' : 'btn-base btn-slate text-xs py-1 px-2.5';
@@ -1119,7 +969,7 @@
             const filtered = (state.logs || []).filter(l => {
                 const lvl = (l.level || '').toUpperCase();
                 if (currentLogFilter !== 'ALL') {
-                    if (currentLogFilter === 'ERROR' && lvl !== 'ERROR' && lvl !== 'CRITICAL') return false;
+                    if (currentLogFilter === 'ERROR' && lvl !== 'ERROR' && lvl !== 'CRITICAL' && lvl !== 'WARN') return false;
                     else if (currentLogFilter !== 'ERROR' && lvl !== currentLogFilter) return false;
                 }
                 if (!query) return true;
@@ -1129,7 +979,7 @@
             });
 
             if (!filtered.length) {
-                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-slate-500 py-8">هیچ لاگی مطابق فیلتر انتخابی یافت نشد.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-slate-500 py-8">هیچ لاگی یافت نشد.</td></tr>`;
                 return;
             }
 
@@ -1152,40 +1002,17 @@
             await apiFetch('/logs/clear', { method: 'POST' });
             state.logs = [];
             renderFullLogs();
-            showToast('لاگ‌های سرور پاک‌سازی شدند.');
-        }
-
-        function exportLogsAsJson() {
-            const blob = new Blob([JSON.stringify(state.logs, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `catan-logs-${Date.now()}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
+            showToast('لاگ‌ها پاک‌سازی شدند.');
         }
 
         // =====================================================================
         // USERS TAB FUNCTIONS
         // =====================================================================
-        function setUserFilter(filter) {
-            currentUserFilter = filter;
-            ['ALL', 'REGISTERED', 'GUEST'].forEach(f => {
-                const btn = document.getElementById(`user-filter-${f}`);
-                if (btn) {
-                    btn.className = f === filter ? 'btn-base btn-amber text-xs py-1.5 px-3' : 'btn-base btn-slate text-xs py-1.5 px-3';
-                }
-            });
-            renderUsersTable();
-        }
-
         function renderUsersTable() {
             const tbody = document.getElementById('users-table-tbody');
             const query = (document.getElementById('user-search-input')?.value || '').trim().toLowerCase();
 
             const filtered = (state.users || []).filter(u => {
-                if (currentUserFilter === 'REGISTERED' && u.is_guest) return false;
-                if (currentUserFilter === 'GUEST' && !u.is_guest) return false;
                 if (!query) return true;
                 return (
                     (u.username || '').toLowerCase().includes(query) ||
@@ -1195,7 +1022,7 @@
             });
 
             if (!filtered.length) {
-                tbody.innerHTML = `<tr><td colspan="10" class="text-center text-slate-500 py-8">کاربری مطابق جستجوی شما یافت نشد.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center text-slate-500 py-8">هنوز کاربری ثبت‌نام نکرده است.</td></tr>`;
                 return;
             }
 
@@ -1204,7 +1031,6 @@
                     <td class="font-mono-num text-amber-400 font-semibold" dir="ltr">${escapeHtml(u.friend_id)}</td>
                     <td class="font-bold text-white">${escapeHtml(u.username)}</td>
                     <td class="font-mono-num text-xs text-slate-300" dir="ltr">${escapeHtml(u.email || '—')}</td>
-                    <td>${u.is_guest ? '<span class="text-slate-400 text-xs">مهمان</span>' : '<span class="text-emerald-400 text-xs font-semibold">ثبت‌نامی رسمی</span>'}</td>
                     <td class="text-xs text-slate-300">${escapeHtml(u.title || 'مهاجر کاتان')}</td>
                     <td class="font-mono-num font-bold text-sky-400">${u.level || 1}</td>
                     <td class="font-mono-num">${(u.total_xp || 0).toLocaleString('en-US')}</td>
@@ -1220,25 +1046,7 @@
             `).join('');
         }
 
-        function openCreateUserModal() {
-            document.getElementById('um-mode').value = 'create';
-            document.getElementById('user-modal-title').textContent = 'ساخت حساب کاربری جدید';
-            document.getElementById('um-friendId').value = 'خودکار (#BC-XXXX)';
-            document.getElementById('um-username').value = '';
-            document.getElementById('um-email').value = '';
-            document.getElementById('um-password').value = '';
-            document.getElementById('um-title').value = 'مهاجر کاتان';
-            document.getElementById('um-frame').value = 'frame-wood';
-            document.getElementById('um-level').value = 1;
-            document.getElementById('um-totalXp').value = 0;
-            document.getElementById('um-gamesPlayed').value = 0;
-            document.getElementById('um-gamesWon').value = 0;
-            document.getElementById('um-isGuest').checked = false;
-            document.getElementById('user-modal').classList.remove('hidden');
-        }
-
         function openEditUserModal(user) {
-            document.getElementById('um-mode').value = 'edit';
             document.getElementById('user-modal-title').textContent = `ویرایش کاربر: ${user.username}`;
             document.getElementById('um-friendId').value = user.friend_id;
             document.getElementById('um-username').value = user.username || '';
@@ -1250,7 +1058,6 @@
             document.getElementById('um-totalXp').value = user.total_xp || 0;
             document.getElementById('um-gamesPlayed').value = user.games_played || 0;
             document.getElementById('um-gamesWon').value = user.games_won || 0;
-            document.getElementById('um-isGuest').checked = Boolean(user.is_guest);
             document.getElementById('user-modal').classList.remove('hidden');
         }
 
@@ -1260,7 +1067,6 @@
 
         async function submitUserModal(e) {
             e.preventDefault();
-            const mode = document.getElementById('um-mode').value;
             const payload = {
                 friendId: document.getElementById('um-friendId').value,
                 username: document.getElementById('um-username').value.trim(),
@@ -1272,18 +1078,17 @@
                 totalXp: Number(document.getElementById('um-totalXp').value) || 0,
                 gamesPlayed: Number(document.getElementById('um-gamesPlayed').value) || 0,
                 gamesWon: Number(document.getElementById('um-gamesWon').value) || 0,
-                isGuest: document.getElementById('um-isGuest').checked ? 1 : 0
+                isGuest: 0
             };
 
-            const endpoint = mode === 'create' ? '/users/create' : '/users/update';
-            const res = await apiFetch(endpoint, {
+            const res = await apiFetch('/users/update', {
                 method: 'POST',
                 body: JSON.stringify(payload)
             });
 
             if (res.success) {
                 closeUserModal();
-                showToast(mode === 'create' ? 'کاربر جدید با موفقیت ساخته شد.' : 'اطلاعات کاربر بروزرسانی شد.');
+                showToast('اطلاعات کاربر بروزرسانی شد.');
                 refreshCurrentTab(false);
             } else {
                 showToast(res.error || 'خطا در ذخیره اطلاعات کاربر');
@@ -1307,13 +1112,13 @@
         function renderRoomsTable() {
             const tbody = document.getElementById('rooms-table-tbody');
             if (!state.rooms.length) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-slate-500 py-8">در حال حاضر هیچ رومی روی سرور فعال نیست. با دکمه «+ ساخت روم جدید روی سرور» می‌توانید یک روم بسازید.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-slate-500 py-8">هیچ رومی در حال حاضر فعال نیست.</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = state.rooms.map(r => {
                 const statusHtml = r.status === 'in_game'
-                    ? `<span class="text-emerald-400 font-bold">در حال بازی (3D)</span>`
+                    ? `<span class="text-emerald-400 font-bold">در حال بازی</span>`
                     : (r.status === 'launched' ? `<span class="text-sky-400 font-bold">در حال انتقال به بازی</span>` : `<span class="text-amber-400 font-bold">در انتظار بازیکنان</span>`);
 
                 const playersList = (r.players || []).map(p => {
@@ -1335,7 +1140,7 @@
                         <td class="text-xs text-slate-400">${formatRelativeTime(r.updatedAt)}</td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <button onclick="inspectRoom('${escapeHtml(r.code)}')" class="btn-base btn-slate text-xs py-1 px-2.5">مشاهده و پیام</button>
+                                <button onclick="inspectRoom('${escapeHtml(r.code)}')" class="btn-base btn-slate text-xs py-1 px-2.5">لاگ روم</button>
                                 <button onclick="deleteRoomByCode('${escapeHtml(r.code)}')" class="btn-base btn-danger text-xs py-1 px-2.5">بستن روم</button>
                             </div>
                         </td>
@@ -1354,21 +1159,21 @@
             }
 
             document.getElementById('rm-code').value = room.code;
-            document.getElementById('rm-title').textContent = `بازرسی زنده روم #${room.code}`;
-            document.getElementById('rm-subtitle').textContent = `میزبان: ${room.hostName} (${room.hostId}) · تعداد پیام‌ها: ${room.messageCount}`;
+            document.getElementById('rm-title').textContent = `جزئیات و لاگ روم #${room.code}`;
+            document.getElementById('rm-subtitle').textContent = `میزبان: ${room.hostName} · تعداد پیام‌ها: ${room.messageCount}`;
 
             const pBox = document.getElementById('rm-players-box');
             pBox.innerHTML = (room.players || []).map(p => `
                 <div class="p-2.5 rounded border border-slate-800 bg-slate-950">
                     <div class="font-bold text-xs text-white truncate">${escapeHtml(p.name)}</div>
-                    <div class="text-[11px] text-slate-400 font-mono-num mt-0.5">${p.isBot ? 'ربات هوشمند' : 'بازیکن انسان'} · VP: ${p.vp || 0}</div>
+                    <div class="text-[11px] text-slate-400 font-mono-num mt-0.5">${p.isBot ? 'ربات' : 'بازیکن'} · VP: ${p.vp || 0}</div>
                 </div>
             `).join('');
 
             const msgList = document.getElementById('rm-messages-list');
             const msgs = room.recentMessages || [];
             if (!msgs.length) {
-                msgList.innerHTML = `<div class="text-center text-slate-500 py-6">هنوز پیامی در این روم مبادله نشده است.</div>`;
+                msgList.innerHTML = `<div class="text-center text-slate-500 py-6">هنوز پیامی در این روم ثبت نشده است.</div>`;
             } else {
                 msgList.innerHTML = msgs.map(m => {
                     const t = new Date(m.timestamp).toISOString().slice(11, 19);
@@ -1404,7 +1209,7 @@
             });
             if (res.success) {
                 document.getElementById('rm-chat-input').value = '';
-                showToast(`پیام سیستم به روم #${code} ارسال شد.`);
+                showToast(`پیام به روم #${code} ارسال شد.`);
                 inspectRoom(code);
             }
         }
@@ -1415,77 +1220,8 @@
                 body: JSON.stringify({ code })
             });
             if (res.success) {
-                showToast(`روم #${code} بسته و حذف شد.`);
+                showToast(`روم #${code} بسته شد.`);
                 refreshCurrentTab(false);
-            }
-        }
-
-        function openCreateRoomModal() {
-            const randCode = String(Math.floor(1000 + Math.random() * 9000));
-            document.getElementById('gm-title').textContent = 'ساخت روم جدید روی سرور';
-            document.getElementById('gm-body').innerHTML = `
-                <form onsubmit="submitCreateRoom(event)" class="space-y-3">
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">کد ۴ رقمی روم</label>
-                        <input type="text" id="cr-code" value="${randCode}" class="input-field font-mono-num" required>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">نام میزبان اولیه</label>
-                        <input type="text" id="cr-hostName" value="میزبان تورنمنت" class="input-field" required>
-                    </div>
-                    <div class="flex justify-end gap-2 pt-2">
-                        <button type="button" onclick="closeGenericModal()" class="btn-base btn-slate">انصراف</button>
-                        <button type="submit" class="btn-base btn-amber">ساخت روم</button>
-                    </div>
-                </form>
-            `;
-            document.getElementById('generic-modal').classList.remove('hidden');
-        }
-
-        async function submitCreateRoom(e) {
-            e.preventDefault();
-            const code = document.getElementById('cr-code').value.trim();
-            const hostName = document.getElementById('cr-hostName').value.trim();
-            const res = await apiFetch('/rooms/create', {
-                method: 'POST',
-                body: JSON.stringify({ code, hostName })
-            });
-            if (res.success) {
-                closeGenericModal();
-                showToast(`روم #${code} با موفقیت ساخته شد.`);
-                refreshCurrentTab(false);
-            }
-        }
-
-        function openBroadcastModal(code = 'ALL') {
-            document.getElementById('gm-title').textContent = 'ارسال پیام سیستم به تمام روم‌های فعال';
-            document.getElementById('gm-body').innerHTML = `
-                <form onsubmit="submitGlobalBroadcast(event)" class="space-y-3">
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">متن پیام مدیریت</label>
-                        <input type="text" id="gb-text" class="input-field" placeholder="مثال: سرور تا ۱۰ دقیقه دیگر بروزرسانی می‌شود..." required>
-                    </div>
-                    <div class="flex justify-end gap-2 pt-2">
-                        <button type="button" onclick="closeGenericModal()" class="btn-base btn-slate">انصراف</button>
-                        <button type="submit" class="btn-base btn-amber">ارسال پیام</button>
-                    </div>
-                </form>
-            `;
-            document.getElementById('generic-modal').classList.remove('hidden');
-        }
-
-        async function submitGlobalBroadcast(e) {
-            e.preventDefault();
-            const text = document.getElementById('gb-text').value.trim();
-            const res = await apiFetch('/rooms/broadcast', {
-                method: 'POST',
-                body: JSON.stringify({ code: 'ALL', text })
-            });
-            closeGenericModal();
-            if (res.success) {
-                showToast(`پیام به ${res.sentToRooms?.length || 0} روم فعال ارسال شد.`);
-            } else {
-                showToast(res.error || 'رومی برای ارسال پیام فعال نیست.');
             }
         }
 
@@ -1518,7 +1254,7 @@
                             <td class="font-mono-num">${u.games_played || 0}</td>
                             <td class="font-mono-num">${rate}%</td>
                             <td>
-                                <button onclick='openEditUserModal(${JSON.stringify(u).replace(/'/g, "&#39;")})' class="btn-base btn-slate text-xs py-1 px-2.5">تغییر امتیاز</button>
+                                <button onclick='openEditUserModal(${JSON.stringify(u).replace(/'/g, "&#39;")})' class="btn-base btn-slate text-xs py-1 px-2.5">ویرایش امتیاز</button>
                             </td>
                         </tr>
                     `;
@@ -1527,7 +1263,7 @@
 
             const mTbody = document.getElementById('matches-table-tbody');
             if (!state.matches.length) {
-                mTbody.innerHTML = `<tr><td colspan="7" class="text-center text-slate-500 py-8">هیچ مسابقه‌ای در تاریخچه ثبت نشده است.</td></tr>`;
+                mTbody.innerHTML = `<tr><td colspan="7" class="text-center text-slate-500 py-8">هیچ مسابقه‌ای ثبت نشده است.</td></tr>`;
             } else {
                 mTbody.innerHTML = state.matches.map(m => {
                     const parts = (m.participants || []).map(p => `
@@ -1556,63 +1292,6 @@
             }
         }
 
-        function openRecordMatchModal() {
-            document.getElementById('gm-title').textContent = 'ثبت دستی نتیجه مسابقه و اعطای XP';
-            document.getElementById('gm-body').innerHTML = `
-                <form onsubmit="submitManualMatch(event)" class="space-y-3">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-xs text-slate-300 mb-1">کد روم مسابقه</label>
-                            <input type="text" id="mm-code" value="TOURNAMENT" class="input-field font-mono-num" required>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-300 mb-1">شناسه برنده (#BC-XXXX)</label>
-                            <input type="text" id="mm-winnerId" placeholder="#BC-1234" class="input-field font-mono-num text-left" dir="ltr" required>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-xs text-slate-300 mb-1">نام بازیکن برنده</label>
-                            <input type="text" id="mm-winnerName" placeholder="نام قهرمان" class="input-field" required>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-300 mb-1">امتیاز پیروزی (VP)</label>
-                            <input type="number" id="mm-vp" value="10" min="1" max="20" class="input-field font-mono-num" required>
-                        </div>
-                    </div>
-                    <div class="flex justify-end gap-2 pt-2">
-                        <button type="button" onclick="closeGenericModal()" class="btn-base btn-slate">انصراف</button>
-                        <button type="submit" class="btn-base btn-amber">ثبت مسابقه و افزودن امتیاز</button>
-                    </div>
-                </form>
-            `;
-            document.getElementById('generic-modal').classList.remove('hidden');
-        }
-
-        async function submitManualMatch(e) {
-            e.preventDefault();
-            const sessionCode = document.getElementById('mm-code').value.trim();
-            const winnerFriendId = document.getElementById('mm-winnerId').value.trim();
-            const winnerName = document.getElementById('mm-winnerName').value.trim();
-            const vp = Number(document.getElementById('mm-vp').value) || 10;
-
-            const res = await apiFetch('/matches/record', {
-                method: 'POST',
-                body: JSON.stringify({
-                    sessionCode,
-                    winnerFriendId,
-                    winnerName,
-                    players: [{ friendId: winnerFriendId, name: winnerName, colorIdx: 0, vp, isWinner: true, isBot: false }]
-                })
-            });
-
-            if (res.success) {
-                closeGenericModal();
-                showToast('نتیجه مسابقه ثبت شد و XP بازیکن بروزرسانی گردید.');
-                refreshCurrentTab(false);
-            }
-        }
-
         async function deleteMatchRecord(matchId) {
             const res = await apiFetch('/matches/delete', {
                 method: 'POST',
@@ -1625,7 +1304,7 @@
         }
 
         // =====================================================================
-        // SETTINGS & DB DIAGNOSTICS FUNCTIONS
+        // SETTINGS & DB RESET FUNCTIONS
         // =====================================================================
         function populateSettingsForm(cfg) {
             document.getElementById('cfg-siteTitle').value = cfg.siteTitle || 'The Bears Catan - پنل کاربری و هاب آنلاین';
@@ -1640,8 +1319,6 @@
             document.getElementById('cfg-winBonusXp').value = cfg.winBonusXp ?? 150;
             document.getElementById('cfg-participationXp').value = cfg.participationXp ?? 40;
             document.getElementById('cfg-welcomeBonusXp').value = cfg.welcomeBonusXp ?? 100;
-            document.getElementById('cfg-customStunUrl').value = cfg.customStunUrl || 'stun:stun.l.google.com:19302';
-            document.getElementById('cfg-customTurnUrl').value = cfg.customTurnUrl || 'turn:openrelay.metered.ca:80';
         }
 
         async function saveSiteSettings(e) {
@@ -1658,9 +1335,7 @@
                 maxActiveRooms: Number(document.getElementById('cfg-maxActiveRooms').value) || 100,
                 winBonusXp: Number(document.getElementById('cfg-winBonusXp').value) || 150,
                 participationXp: Number(document.getElementById('cfg-participationXp').value) || 40,
-                welcomeBonusXp: Number(document.getElementById('cfg-welcomeBonusXp').value) || 0,
-                customStunUrl: document.getElementById('cfg-customStunUrl').value.trim(),
-                customTurnUrl: document.getElementById('cfg-customTurnUrl').value.trim()
+                welcomeBonusXp: Number(document.getElementById('cfg-welcomeBonusXp').value) || 0
             };
 
             const res = await apiFetch('/settings', {
@@ -1670,44 +1345,16 @@
 
             if (res.success) {
                 state.settings = res.settings;
-                showToast('تنظیمات سایت و بازی با موفقیت ذخیره شد.');
+                showToast('تنظیمات ذخیره شد.');
                 refreshCurrentTab(false);
             }
         }
 
-        async function runDbDiagnostics() {
-            document.getElementById('gm-title').textContent = 'تست زنده اتصال و سلامت دیتابیس';
-            document.getElementById('gm-body').innerHTML = `<div class="text-slate-400 py-4 text-center">در حال بررسی جداول و اتصال دیتابیس...</div>`;
-            document.getElementById('generic-modal').classList.remove('hidden');
-
-            try {
-                const res = await apiFetch('/test-db');
-                document.getElementById('gm-body').innerHTML = `
-                    <pre class="p-3 rounded bg-slate-950 border border-slate-800 font-mono-num text-xs text-emerald-400 overflow-x-auto" dir="ltr">${escapeHtml(JSON.stringify(res.diagnostics || res, null, 2))}</pre>
-                    <div class="flex justify-end pt-2">
-                        <button onclick="closeGenericModal()" class="btn-base btn-amber">بستن</button>
-                    </div>
-                `;
-            } catch (err) {
-                document.getElementById('gm-body').innerHTML = `<div class="text-rose-400">خطا در تست دیتابیس: ${escapeHtml(err.message)}</div>`;
-            }
-        }
-
-        function closeGenericModal() {
-            document.getElementById('generic-modal').classList.add('hidden');
-        }
-
-        function toggleAutoSync() {
-            isAutoSync = !isAutoSync;
-            const btn = document.getElementById('btn-auto-sync');
-            if (isAutoSync) {
-                btn.textContent = 'فعال (۴ ثانیه)';
-                btn.className = 'text-emerald-400 font-semibold hover:underline';
-                startAutoSync();
-            } else {
-                btn.textContent = 'غیرفعال';
-                btn.className = 'text-slate-400 font-semibold hover:underline';
-                clearInterval(autoSyncTimer);
+        async function resetFullDatabase() {
+            const res = await apiFetch('/reset-db', { method: 'POST' });
+            if (res.success) {
+                showToast('دیتابیس، روم‌ها و لاگ‌ها به طور کامل پاک‌سازی شدند.');
+                refreshCurrentTab(false);
             }
         }
 
@@ -1720,10 +1367,8 @@
             }, 4000);
         }
 
-        // Initial Boot
         (async function initAdminConsole() {
             if (!adminKey) {
-                // Default attempt with catan2026 if not provided, or show auth gate if rejected
                 adminKey = 'catan2026';
             }
             try {

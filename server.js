@@ -905,6 +905,28 @@ app.get(['/api/admin/test-db', '/catan/api/admin/test-db'], async (req, res) => 
     }
 });
 
+// مسیر پاک‌سازی و صفر کردن کامل دیتابیس (Reset Database)
+app.post(['/api/admin/reset-db', '/catan/api/admin/reset-db'], async (req, res) => {
+    if (!checkAdminAuth(req)) return res.status(403).json({ error: 'Unauthorized' });
+    try {
+        await dbRun('DELETE FROM match_participants');
+        await dbRun('DELETE FROM match_history');
+        await dbRun('DELETE FROM friends');
+        await dbRun('DELETE FROM users');
+        if (DB_TYPE !== 'mysql') {
+            try {
+                await dbRun("DELETE FROM sqlite_sequence WHERE name IN ('users', 'friends', 'match_history', 'match_participants')");
+            } catch (_) {}
+        }
+        partyRelay._rooms.clear();
+        logBuffer.length = 0;
+        fs.writeFile(LOG_FILE, '', () => {});
+        res.json({ success: true, message: 'دیتابیس، روم‌ها و لاگ‌ها به طور کامل پاک‌سازی شدند.' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // ============================================================================
 // 4. Authentication & User API Endpoints
 // ============================================================================
@@ -1094,25 +1116,23 @@ app.post('/api/user/sync', async (req, res) => {
                 pin || '',
                 friendId
             ]);
-        } else {
-            await dbRun(`
-                INSERT INTO users (
-                    friend_id, username, pin, avatar, frame, title, equipped_color_idx, is_guest, last_seen
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            `, [
-                friendId,
-                username || 'مهمان کاتان',
-                pin || '',
-                avatar || 'images/thebearcatan.png',
-                frame || 'frame-wood',
-                title || 'مهاجر کاتان',
-                equippedColorIdx || 0,
-                isGuest ? 1 : 0
-            ]);
+            const updated = await dbGet('SELECT * FROM users WHERE friend_id = ?', [friendId]);
+            return res.json({ success: true, user: sanitizeUser(updated) });
         }
 
-        const updated = await dbGet('SELECT * FROM users WHERE friend_id = ?', [friendId]);
-        res.json({ success: true, user: sanitizeUser(updated) });
+        // عدم ذخیره خودکار بازدیدکنندگان مهمان (بدون ثبت‌نام) در دیتابیس اصلی
+        return res.json({
+            success: true,
+            user: {
+                friend_id: friendId,
+                username: username || 'مهمان کاتان',
+                avatar: avatar || 'images/thebearcatan.png',
+                frame: frame || 'frame-wood',
+                title: title || 'مهاجر کاتان',
+                equipped_color_idx: equippedColorIdx || 0,
+                is_guest: 1
+            }
+        });
     } catch (err) {
         writeLog('ERROR', `User sync error: ${err.message}`);
         res.status(500).json({ error: err.message });
