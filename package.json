@@ -1,0 +1,20 @@
+{
+  "name": "the-bears-catan-server",
+  "version": "1.0.0",
+  "description": "Production SQL and WebRTC Signaling Server for The Bears Catan",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node -c server.js",
+    "lint": "node -c server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.24.6",
+    "peer": "^1.0.2",
+    "sqlite3": "^5.1.7"
+  }
+}

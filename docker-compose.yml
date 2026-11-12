@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  catan-game:
+    build: .
+    container_name: catan_game_app
+    restart: always
+    network_mode: "host"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DB_TYPE=mysql
+      - DB_HOST=127.0.0.1
+      - DB_PORT=3306
+      - DB_NAME=catan_db
+      - DB_USER=catan_user
+      - DB_PASSWORD=kvaca555
+    volumes:
+      - catan_data:/app/data
+
+volumes:
+  catan_data:
